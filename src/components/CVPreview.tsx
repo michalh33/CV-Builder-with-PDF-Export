@@ -1,14 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CVData } from '../types/cv';
+// Forward ref so parent can capture the preview DOM for PDF export
 import { MapPinIcon, MailIcon, PhoneIcon } from 'lucide-react';
 interface CVPreviewProps {
   data: CVData;
 }
-export function CVPreview({
+
+export const CVPreview = React.forwardRef<HTMLDivElement, CVPreviewProps>(function CVPreview({
   data
-}: CVPreviewProps) {
-  return <motion.div initial={{
+}, ref) {
+  return <motion.div ref={ref} initial={{
     opacity: 0,
     x: 50
   }} animate={{
@@ -107,4 +109,6 @@ export function CVPreview({
           </section>}
       </div>
     </motion.div>;
-}
+});
+
+CVPreview.displayName = 'CVPreview';
